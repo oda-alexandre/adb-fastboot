@@ -1,25 +1,28 @@
 # ANDROID ROOT TOOLS
 
-![android-root-tools](https://raw.githubusercontent.com/oda-alexandre/android-root-tools/master/img/logo-android-root-tools.png) ![docker](https://raw.githubusercontent.com/oda-alexandre/android-root-tools/master/img/logo-docker.png)
+[![dockeri.co](https://dockeri.co/image/alexandreoda/android-root-tools)](https://hub.docker.com/r/alexandreoda/android-root-tools)
 
 
 ## INDEX
 
-- [Build Docker](#BUILD)
+- [Badges](#BADGES)
 - [Introduction](#INTRODUCTION)
 - [Prerequis](#PREREQUIS)
 - [Installation](#INSTALLATION)
 - [License](#LICENSE)
 
 
-## BUILD DOCKER
+## BADGES
 
-[![android-root-tools docker build](https://img.shields.io/docker/build/alexandreoda/android-root-tools.svg)](https://hub.docker.com/r/alexandreoda/android-root-tools)
+[![version](https://images.microbadger.com/badges/version/alexandreoda/android-root-tools.svg)](https://microbadger.com/images/alexandreoda/android-root-tools)
+[![size](https://images.microbadger.com/badges/image/alexandreoda/android-root-tools.svg)](https://microbadger.com/images/alexandreoda/android-root-tools")
+[![build](https://img.shields.io/docker/build/alexandreoda/android-root-tools.svg)](https://hub.docker.com/r/alexandreoda/android-root-tools)
+[![build](https://img.shields.io/docker/automated/alexandreoda/android-root-tools.svg)](https://hub.docker.com/r/alexandreoda/android-root-tools)
 
 
 ## INTRODUCTION
 
-Ce repository contient le fichier Dockerfile avec [fatsboot](https://developer.android.com/studio) pour [docker](https://www.docker.com), mis à jour automatiquement dans le [docker hub](https://hub.docker.com/r/alexandreoda/android-root-tools/) public.
+Ce repository contient le fichier Dockerfile avec [fatsboot](https://developer.android.com/studio) pour [docker](https://www.docker.com), mis à jour automatiquement dans le [docker hub public](https://hub.docker.com/r/alexandreoda/android-root-tools/).
 
 
 ## PREREQUIS
