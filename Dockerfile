@@ -15,18 +15,18 @@ usbutils \
 android-tools* \
 fastboot \
 heimdall-flash \
-heimdall-flash-frontend
+heimdall-flash-frontend && \
 
 # SELECTION DE LA LANGUE FRANCAISE
-RUN echo ${LANG} > /etc/locale.gen && locale-gen
+echo ${LANG} > /etc/locale.gen && locale-gen && \
 
 # AJOUT UTILISATEUR
-RUN useradd -d /home/${USER} -m ${USER} && \
+useradd -d /home/${USER} -m ${USER} && \
 passwd -d ${USER} && \
-adduser ${USER} sudo
+adduser ${USER} sudo && \
 
 # NETTOYAGE
-RUN apt-get --purge autoremove -y && \
+apt-get --purge autoremove -y && \
 apt-get autoclean -y && \
 rm /etc/apt/sources.list && \
 rm -rf /var/cache/apt/archives/* && \
