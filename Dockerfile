@@ -1,6 +1,10 @@
 FROM debian:stretch-slim
 
-MAINTAINER https://oda-alexandre.github.io
+MAINTAINER https://oda-alexandre.com
+
+# VARIABLES D'ENVIRONNEMENT
+ENV LANG fr_FR.UTF-8
+ENV USER android
 
 # INSTALLATION DES PREREQUIS
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -13,19 +17,18 @@ heimdall-flash \
 heimdall-flash-frontend
 
 # SELECTION DE LA LANGUE FRANCAISE
-ENV LANG fr_FR.UTF-8
-RUN echo fr_FR.UTF-8 UTF-8 > /etc/locale.gen && locale-gen
+RUN echo ${LANG} > /etc/locale.gen && locale-gen
 
 # AJOUT UTILISATEUR
-RUN useradd -d /home/android -m android && \
-passwd -d android && \
-adduser android sudo
+RUN useradd -d /home/${USER} -m ${USER} && \
+passwd -d ${USER} && \
+adduser ${USER} sudo
 
 # SELECTION UTILISATEUR
-USER android
+USER ${USER}
 
 # SELECTION ESPACE DE TRAVAIL
-WORKDIR /home/android
+WORKDIR /home/${USER}
 
 # NETTOYAGE
 RUN sudo apt-get --purge autoremove -y && \
