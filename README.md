@@ -17,12 +17,17 @@
 [![version](https://images.microbadger.com/badges/version/alexandreoda/android-root-tools.svg)](https://microbadger.com/images/alexandreoda/android-root-tools)
 [![size](https://images.microbadger.com/badges/image/alexandreoda/android-root-tools.svg)](https://microbadger.com/images/alexandreoda/android-root-tools")
 [![build](https://img.shields.io/docker/build/alexandreoda/android-root-tools.svg)](https://hub.docker.com/r/alexandreoda/android-root-tools)
-[![build](https://img.shields.io/docker/automated/alexandreoda/android-root-tools.svg)](https://hub.docker.com/r/alexandreoda/android-root-tools)
+[![automated](https://img.shields.io/docker/automated/alexandreoda/android-root-tools.svg)](https://hub.docker.com/r/alexandreoda/android-root-tools)
 
 
 ## INTRODUCTION
 
-Ce repository contient le fichier Dockerfile avec [fatsboot](https://developer.android.com/studio) pour [docker](https://www.docker.com), mis à jour automatiquement dans le [docker hub public](https://hub.docker.com/r/alexandreoda/android-root-tools/).
+Ce repository contient le fichier Dockerfile de
+
+- [fatsboot](https://www.phonandroid.com/adb-fastboot-android-a-quoi-ca-sert-comment-telecharger.html)
+- [heimdall](http://heimdall-download.com/)
+
+mis à jour automatiquement dans le [docker hub public](https://hub.docker.com/r/alexandreoda/android-root-tools/).
 
 
 ## PREREQUIS
