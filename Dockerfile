@@ -3,8 +3,8 @@ FROM debian:stretch-slim
 MAINTAINER https://oda-alexandre.com
 
 # VARIABLES D'ENVIRONNEMENT
-ENV USER android \
-LANG fr_FR.UTF-8
+ENV USER android
+ENV LANG fr_FR.UTF-8
 
 
 # INSTALLATION DES PREREQUIS
