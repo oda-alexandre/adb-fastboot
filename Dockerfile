@@ -1,6 +1,6 @@
 FROM debian:stretch-slim
 
-MAINTAINER https://oda-alexandre.com
+MAINTAINER http://www.oda-alexandre.com/
 
 # VARIABLES D'ENVIRONNEMENT
 ENV USER android
