@@ -1,7 +1,5 @@
 # ANDROID ROOT TOOLS
 
-[![dockeri.co](https://dockeri.co/image/alexandreoda/android-root-tools)](https://hub.docker.com/r/alexandreoda/android-root-tools)
-
 
 ## INDEX
 
