@@ -4,7 +4,6 @@ MAINTAINER https://www.oda-alexandre.com/
 
 # VARIABLES D'ENVIRONNEMENT
 ENV USER android
-ENV LANG fr_FR.UTF-8
 
 
 # INSTALLATION DES PREREQUIS
@@ -12,13 +11,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 sudo \
 locales \
 usbutils \
-android-tools* \
+android-tools-* \
 fastboot \
 heimdall-flash \
 heimdall-flash-frontend && \
-
-# SELECTION DE LA LANGUE FRANCAISE
-echo ${LANG} > /etc/locale.gen && locale-gen && \
 
 # AJOUT UTILISATEUR
 useradd -d /home/${USER} -m ${USER} && \
