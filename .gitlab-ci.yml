@@ -4,9 +4,20 @@ image: docker:latest
 services:
   - docker:dind
 
+stages:
+  - build
+  - test
+
 build:
   stage: build
   script:
     - docker build -t "$CI_REGISTRY_IMAGE" .
+  only:
+    - master
+
+test:
+  stage: test
+  script:
+    - docker run "$CI_REGISTRY_IMAGE"
   only:
     - master
