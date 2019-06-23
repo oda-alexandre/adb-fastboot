@@ -8,8 +8,5 @@ build:
   stage: build
   script:
     - docker build -t "$CI_REGISTRY_IMAGE" .
-  stage: test
-  script:
-    - docker run -d --name "$CI_REGISTRY_IMAGE" -v ${HOME}:/home/android-studio -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v /dev/bus/usb:dev/bus/usb --privileged -e DISPLAY "$CI_REGISTRY_IMAGE"
   only:
     - master
