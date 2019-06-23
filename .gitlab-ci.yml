@@ -8,16 +8,19 @@ stages:
   - build
   - test
 
+variables:
+  APP: android-root-tools
+
 build:
   stage: build
   script:
-    - docker build -t "$CI_REGISTRY_IMAGE" .
+    - docker build -t ${APP} .
   only:
     - master
 
 test:
   stage: test
   script:
-    - docker run "$CI_REGISTRY_IMAGE"
+    - docker run -ti --name ${APP} ${APP}
   only:
     - master
