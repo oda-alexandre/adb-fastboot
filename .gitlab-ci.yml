@@ -18,6 +18,6 @@ build:
 test:
   stage: test
   script:
-    - docker run .
+    - docker run "$CI_REGISTRY_IMAGE"
   only:
     - master
