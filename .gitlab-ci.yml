@@ -21,6 +21,6 @@ build:
 test:
   stage: test
   script:
-    - docker run -ti --name ${APP} ${APP}
+    - docker run --name ${APP} ${APP}
   only:
     - master
