@@ -1,38 +1,33 @@
+# IMAGE TO USE
 FROM debian:stretch-slim
 
+# MAINTAINER
 MAINTAINER https://www.oda-alexandre.com/
 
-# VARIABLES D'ENVIRONNEMENT
+# ENVIRONMENTAL VARIABLES
 ENV USER android
 
+# INSTALLATION OF PACKAGES
+ADD packages.txt
+RUN cat packages.txt | xargs apt-get update && apt-get install -y --no-install-recommends && \
 
-# INSTALLATION DES PREREQUIS
-RUN apt-get update && apt-get install -y --no-install-recommends \
-sudo \
-locales \
-usbutils \
-android-tools-* \
-fastboot \
-heimdall-flash \
-heimdall-flash-frontend && \
-
-# AJOUT UTILISATEUR
+# ADD USER
 useradd -d /home/${USER} -m ${USER} && \
 passwd -d ${USER} && \
 adduser ${USER} sudo && \
 
-# NETTOYAGE
+# CLEANING
 apt-get --purge autoremove -y && \
 apt-get autoclean -y && \
 rm /etc/apt/sources.list && \
 rm -rf /var/cache/apt/archives/* && \
 rm -rf /var/lib/apt/lists/*
 
-# SELECTION UTILISATEUR
+# USER SELECTION
 USER ${USER}
 
-# SELECTION ESPACE DE TRAVAIL
+# SELECTION WORKING SPACE
 WORKDIR /home/${USER}
 
-# COMMANDE AU DEMARRAGE DU CONTENEUR
+# CONTROL TO START THE CONTAINER
 ENTRYPOINT /bin/bash

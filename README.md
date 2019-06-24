@@ -13,7 +13,6 @@
 ## BADGES
 
 [![pipeline status](https://gitlab.com/oda-alexandre/android-root-tools/badges/master/pipeline.svg)](https://gitlab.com/oda-alexandre/android-root-tools/commits/master)
-[![coverage report](https://gitlab.com/oda-alexandre/android-root-tools/badges/master/coverage.svg)](https://gitlab.com/oda-alexandre/android-root-tools/commits/master)
 
 
 ## INTRODUCTION
