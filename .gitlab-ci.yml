@@ -1,4 +1,4 @@
-image: docker:stable
+image:     docker:stable
 
 services:
   - docker:dind
@@ -6,25 +6,23 @@ services:
 stages:
   - build
   - test
-
-variables:
-  DOCKER_HOST: tcp://docker:2375
-  DOCKER_DRIVER: overlay2
-  CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-
-before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - cleaning
 
 build:
-  stage: build
+  stage:   build
   script:
-    - docker build --pull -t $CONTAINER_TEST_IMAGE .
-    - docker push $CONTAINER_TEST_IMAGE
+    - docker build -t CI_PROJECT_NAME .
+    - docker push CI_PROJECT_NAME
 
 test:
-  stage: test
+  stage:   test
   script:
-    - docker pull $CONTAINER_TEST_IMAGE
-    - docker run $CONTAINER_TEST_IMAGE
+    - docker pull CI_PROJECT_NAME
+    - docker run --name CI_PROJECT_NAME CI_PROJECT_NAME
+
+cleaning:
+  stage:    cleaning
+  script:
+    - docker rm -f -v CI_PROJECT_NAME
   only:
     - master

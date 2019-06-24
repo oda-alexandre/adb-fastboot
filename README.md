@@ -12,10 +12,8 @@
 
 ## BADGES
 
-[![version](https://images.microbadger.com/badges/version/alexandreoda/android-root-tools.svg)](https://microbadger.com/images/alexandreoda/android-root-tools)
-[![size](https://images.microbadger.com/badges/image/alexandreoda/android-root-tools.svg)](https://microbadger.com/images/alexandreoda/android-root-tools")
-[![build](https://img.shields.io/docker/build/alexandreoda/android-root-tools.svg)](https://hub.docker.com/r/alexandreoda/android-root-tools)
-[![automated](https://img.shields.io/docker/automated/alexandreoda/android-root-tools.svg)](https://hub.docker.com/r/alexandreoda/android-root-tools)
+[![pipeline status](https://gitlab.com/oda-alexandre/android-root-tools/badges/master/pipeline.svg)](https://gitlab.com/oda-alexandre/android-root-tools/commits/master)
+[![coverage report](https://gitlab.com/oda-alexandre/android-root-tools/badges/master/coverage.svg)](https://gitlab.com/oda-alexandre/android-root-tools/commits/master)
 
 
 ## INTRODUCTION
