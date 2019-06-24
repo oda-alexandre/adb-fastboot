@@ -8,8 +8,9 @@ MAINTAINER https://www.oda-alexandre.com/
 ENV USER android
 
 # INSTALLATION OF PACKAGES
-ADD packages.txt
+ADD packages.txt .
 RUN cat packages.txt | xargs apt-get update && apt-get install -y --no-install-recommends && \
+rm packages.txt && \
 
 # ADD USER
 useradd -d /home/${USER} -m ${USER} && \
