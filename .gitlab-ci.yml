@@ -21,7 +21,22 @@ build:
     - docker build -t $CI_REGISTRY_IMAGE .
     - docker push $CI_REGISTRY_IMAGE
 
+code_quality:
+  stage: test
+  allow_failure: true
+  script:
+    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+    - docker run
+        --env SOURCE_CODE="$PWD"
+        --volume "$PWD":/code
+        --volume /var/run/docker.sock:/var/run/docker.sock
+        "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.json
+
 container_scanning:
+  stage: test
   allow_failure: true
   script:
     - docker run -d --name db arminc/clair-db:latest
@@ -52,7 +67,7 @@ dependency_scanning:
         --volume /var/run/docker.sock:/var/run/docker.sock
         "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
   artifacts:
-    paths: [gl-dependency-scanning-report.json]
+    paths: gl-dependency-scanning-report.json
 
 sast:
   stage: test
@@ -65,7 +80,7 @@ sast:
         --volume /var/run/docker.sock:/var/run/docker.sock
         "registry.gitlab.com/gitlab-org/security-products/sast:$SP_VERSION" /app/bin/run /code
   artifacts:
-    paths: [gl-sast-report.json]
+    paths: gl-sast-report.json
 
 license_management:
   stage: test
@@ -76,7 +91,7 @@ license_management:
         --volume "$PWD:/code"
         "registry.gitlab.com/gitlab-org/security-products/license-management:$LICENSE_MANAGEMENT_VERSION" analyze /code
   artifacts:
-    paths: [gl-license-management-report.json]
+    paths: gl-license-management-report.json
 
 test:
   stage: test
