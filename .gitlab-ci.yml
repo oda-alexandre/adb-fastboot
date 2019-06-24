@@ -21,7 +21,7 @@ test:
   stage:   test
   script:
     - docker pull $CI_REGISTRY_IMAGE
-    - docker run --name $CI_REGISTRY_IMAGE $CI_REGISTRY_IMAGE
+    - docker run $CI_REGISTRY_IMAGE
 
 cleaning:
   stage:    cleaning
