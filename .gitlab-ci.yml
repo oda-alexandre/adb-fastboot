@@ -20,6 +20,6 @@ test:
   stage:   test
   script:
     - docker pull $CI_REGISTRY_IMAGE
-    - docker run --rm $CI_PROJECT_NAME $CI_REGISTRY_IMAGE
+    - docker run --rm $CI_REGISTRY_IMAGE
   only:
     - master
