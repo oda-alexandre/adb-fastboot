@@ -5,7 +5,7 @@ services:
 
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  
+
 stages:
   - build
   - test
@@ -17,8 +17,8 @@ build:
     - docker build -t $CI_REGISTRY_IMAGE .
     - docker push $CI_REGISTRY_IMAGE
 
-test:simple:
-  stage:   test:simple
+test:
+  stage:   test
   script:
     - docker pull $CI_REGISTRY_IMAGE
     - docker run --name $CI_REGISTRY_IMAGE $CI_REGISTRY_IMAGE
