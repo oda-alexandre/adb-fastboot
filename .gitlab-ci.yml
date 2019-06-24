@@ -11,18 +11,18 @@ stages:
 build:
   stage:   build
   script:
-    - docker build -t CI_PROJECT_NAME .
-    - docker push CI_PROJECT_NAME
+    - docker build -t $CI_PROJECT_NAME .
+    - docker push $CI_PROJECT_NAME
 
 test:
   stage:   test
   script:
-    - docker pull CI_PROJECT_NAME
-    - docker run --name CI_PROJECT_NAME CI_PROJECT_NAME
+    - docker pull $CI_PROJECT_NAME
+    - docker run --name $CI_PROJECT_NAME $CI_PROJECT_NAME
 
 cleaning:
   stage:    cleaning
   script:
-    - docker rm -f -v CI_PROJECT_NAME
+    - docker rm -f -v $CI_PROJECT_NAME
   only:
     - master
