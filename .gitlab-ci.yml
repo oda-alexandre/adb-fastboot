@@ -16,6 +16,7 @@ before_script:
 
 build:
   stage: build
+  allow_failure: false
   script:
     - docker build -t $CI_REGISTRY_IMAGE .
     - docker push $CI_REGISTRY_IMAGE
@@ -26,7 +27,7 @@ container_scanning:
     - docker run -d --name db arminc/clair-db:latest
     - docker run -p 6060:6060 --link db:postgres -d --name clair --restart on-failure arminc/clair-local-scan:${CLAIR_LOCAL_SCAN_VERSION}
     - apk add -U wget ca-certificates
-    - docker pull $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker pull $CI_REGISTRY_IMAGE
     - wget https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64
     - mv clair-scanner_linux_amd64 clair-scanner
     - chmod +x clair-scanner
@@ -35,10 +36,23 @@ container_scanning:
     - retries=0
     - echo "Waiting for clair daemon to start"
     - while( ! wget -T 10 -q -O /dev/null http://docker:6060/v1/namespaces ) ; do sleep 1 ; echo -n "." ; if [ $retries -eq 10 ] ; then echo " Timeout, aborting." ; exit 1 ; fi ; retries=$(($retries+1)) ; done
-    - ./clair-scanner -c http://docker:6060 --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA || true
+    - ./clair-scanner -c http://docker:6060 --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml $CI_REGISTRY_IMAGE || true
   artifacts:
     reports:
       container_scanning: gl-container-scanning-report.json
+
+dependency_scanning:
+  stage: test
+  allow_failure: true
+  script:
+    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+    - docker run
+        --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}"
+        --volume "$PWD:/code"
+        --volume /var/run/docker.sock:/var/run/docker.sock
+        "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
+  artifacts:
+    paths: [gl-dependency-scanning-report.json]
 
 sast:
   stage: test
@@ -53,8 +67,20 @@ sast:
   artifacts:
     paths: [gl-sast-report.json]
 
+license_management:
+  stage: test
+  allow_failure: true
+  script:
+    - export LICENSE_MANAGEMENT_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+    - docker run
+        --volume "$PWD:/code"
+        "registry.gitlab.com/gitlab-org/security-products/license-management:$LICENSE_MANAGEMENT_VERSION" analyze /code
+  artifacts:
+    paths: [gl-license-management-report.json]
+
 test:
   stage: test
+  allow_failure: false
   script:
     - docker pull $CI_REGISTRY_IMAGE
     - docker run --rm $CI_REGISTRY_IMAGE
