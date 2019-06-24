@@ -7,10 +7,16 @@ MAINTAINER https://www.oda-alexandre.com/
 # ENVIRONMENTAL VARIABLES
 ENV USER android
 
+
 # INSTALLATION OF PACKAGES
-COPY packages.txt
-RUN cat packages.txt | xargs apt-get update && apt-get install -y --no-install-recommends && \
-rm packages.txt && \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+sudo \
+locales \
+usbutils \
+android-tools-* \
+fastboot \
+heimdall-flash \
+heimdall-flash-frontend && \
 
 # ADD USER
 useradd -d /home/${USER} -m ${USER} && \

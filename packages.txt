@@ -1,7 +1,0 @@
-sudo
-locales
-usbutils
-android-tools-*
-fastboot
-heimdall-flash
-heimdall-flash-frontend
