@@ -17,7 +17,7 @@
 
 ## INTRODUCTION
 
-Ce repository contient le fichier Dockerfile de
+Ce repository contient le fichier Dockerfile avec
 
 - [fatsboot](https://www.phonandroid.com/adb-fastboot-android-a-quoi-ca-sert-comment-telecharger.html)
 - [heimdall](http://heimdall-download.com/)
