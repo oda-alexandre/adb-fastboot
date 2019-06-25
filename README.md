@@ -19,7 +19,7 @@
 
 Ce repository contient le fichier Dockerfile avec
 
-- [fatsboot](https://www.phonandroid.com/adb-fastboot-android-a-quoi-ca-sert-comment-telecharger.html)
+- [adb & fatsboot](https://www.phonandroid.com/adb-fastboot-android-a-quoi-ca-sert-comment-telecharger.html)
 - [heimdall](http://heimdall-download.com/)
 
 mis à jour automatiquement dans le [docker hub public](https://hub.docker.com/r/alexandreoda/android-root-tools/).
