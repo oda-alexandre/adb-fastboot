@@ -91,11 +91,25 @@ license_management:
   artifacts:
     paths: [gl-license-management-report.json]
 
-test:
+test_simple:
   stage: test
   allow_failure: false
   script:
     - docker pull $CI_REGISTRY_IMAGE
     - docker run --rm $CI_REGISTRY_IMAGE
+
+test_fastboot:
+  stage: test
+  allow_failure: false
+  script:
+    - docker pull $CI_REGISTRY_IMAGE
+    - docker run --rm $CI_REGISTRY_IMAGE /bin/bash fastboot --v
+
+test_adb:
+  stage: test
+  allow_failure: false
+  script:
+    - docker pull $CI_REGISTRY_IMAGE
+    - docker run --rm $CI_REGISTRY_IMAGE /bin/bash adb version
   only:
     - master
