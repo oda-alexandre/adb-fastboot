@@ -4,7 +4,7 @@ FROM debian:stretch-slim
 # MAINTAINER
 MAINTAINER https://www.oda-alexandre.com/
 
-# ENVIRONMENTAL VARIABLES
+# VARIABLES
 ENV DEBIAN_FRONTEND noninteractive
 
 # INSTALL OF PACKAGES
