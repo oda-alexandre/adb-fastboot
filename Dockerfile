@@ -5,23 +5,15 @@ FROM debian:stretch-slim
 MAINTAINER https://www.oda-alexandre.com/
 
 # ENVIRONMENTAL VARIABLES
-ENV USER android
+ENV DEBIAN_FRONTEND noninteractive
 
-
-# INSTALLATION OF PACKAGES
+# INSTALL OF PACKAGES
 RUN apt-get update && apt-get install -y --no-install-recommends \
-sudo \
-locales \
 usbutils \
 android-tools-* \
 fastboot \
 heimdall-flash \
 heimdall-flash-frontend && \
-
-# ADD USER
-useradd -d /home/${USER} -m ${USER} && \
-passwd -d ${USER} && \
-adduser ${USER} sudo && \
 
 # CLEANING
 apt-get --purge autoremove -y && \
@@ -29,12 +21,6 @@ apt-get autoclean -y && \
 rm /etc/apt/sources.list && \
 rm -rf /var/cache/apt/archives/* && \
 rm -rf /var/lib/apt/lists/*
-
-# USER SELECTION
-USER ${USER}
-
-# SELECTION WORKING SPACE
-WORKDIR /home/${USER}
 
 # CONTROL TO START THE CONTAINER
 ENTRYPOINT /bin/bash
