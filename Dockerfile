@@ -22,5 +22,5 @@ rm /etc/apt/sources.list && \
 rm -rf /var/cache/apt/archives/* && \
 rm -rf /var/lib/apt/lists/*
 
-# CONTROL TO START THE CONTAINER
+# START THE CONTAINER
 ENTRYPOINT /bin/bash
