@@ -24,9 +24,11 @@ Docker image of :
 - [adb & fatsboot](https://www.phonandroid.com/adb-fastboot-android-a-quoi-ca-sert-comment-telecharger.html)
 
 Continuous integration on :
+
 - [gitlab](https://gitlab.com/oda-alexandre/android-root-tools/pipelines)
 
 automatically updated on :
+
 - [docker hub public](https://hub.docker.com/r/alexandreoda/android-root-tools/)
 
 
