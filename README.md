@@ -40,7 +40,7 @@ automatically updated on :
 ## INSTALL
 
 ```
-docker run -ti --rm --name android-root-tools -v ${HOME}:/home/android -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v /dev/bus/usb:/dev/bus/usb --privileged --env=QT_X11_NO_MITSHM=1 -v ${XAUTHORITY}:/xauthority:ro -e XAUTHORITY='/xauthority' -e DISPLAY alexandreoda/android-root-tools
+docker run -ti --rm --name android-root-tools -v ${HOME}:/home/android -v /dev/bus/usb:/dev/bus/usb --privileged alexandreoda/android-root-tools
 ```
 
 

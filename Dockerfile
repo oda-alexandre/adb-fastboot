@@ -7,13 +7,11 @@ MAINTAINER https://www.oda-alexandre.com/
 # VARIABLES
 ENV DEBIAN_FRONTEND noninteractive
 
-# INSTALL OF PACKAGES
+# INSTALL PACKAGES
 RUN apt-get update && apt-get install -y --no-install-recommends \
 usbutils \
 android-tools-* \
-fastboot \
-heimdall-flash \
-heimdall-flash-frontend && \
+fastboot && \
 
 # CLEANING
 apt-get --purge autoremove -y && \
@@ -23,4 +21,4 @@ rm -rf /var/cache/apt/archives/* && \
 rm -rf /var/lib/apt/lists/*
 
 # START THE CONTAINER
-ENTRYPOINT /bin/bash
+ENTRYPOINT /bin/bash \
