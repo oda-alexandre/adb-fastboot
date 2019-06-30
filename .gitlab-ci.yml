@@ -101,7 +101,7 @@ test_fastboot:
   stage: test
   allow_failure: false
   script:
-    - echo -e '\033[36;1m ******* TEST FASTBOOT ******** \033[0m'
+    - echo -e '\033[36;1m ******* TEST RUN FASTBOOT ******** \033[0m'
     - docker pull $CI_REGISTRY_IMAGE
     - docker run --rm $CI_REGISTRY_IMAGE /bin/bash fastboot --v
 
@@ -109,7 +109,7 @@ test_adb:
   stage: test
   allow_failure: false
   script:
-    - echo -e '\033[36;1m ******* TEST ADB ******** \033[0m'
+    - echo -e '\033[36;1m ******* TEST RUN ADB ******** \033[0m'
     - docker pull $CI_REGISTRY_IMAGE
     - docker run --rm $CI_REGISTRY_IMAGE /bin/bash adb version
   only:
