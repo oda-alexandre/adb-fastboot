@@ -11,10 +11,10 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
 usbutils \
 android-tools-* \
-fastboot && \
+fastboot
 
 # CLEANING
-apt-get --purge autoremove -y && \
+RUN apt-get --purge autoremove -y && \
 apt-get autoclean -y && \
 rm /etc/apt/sources.list && \
 rm -rf /var/cache/apt/archives/* && \
