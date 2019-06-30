@@ -6,14 +6,14 @@ ENV COLORIN echo -e '\033[36;1m'
 ENV COLOROUT '\033[0m'
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN ${COLORIN} ******* INSTALL PACKAGES ******** ${COLOROUT} && \
-apt-get update && apt-get install -y --no-install-recommends \
+RUN ${COLORIN} ******* INSTALL PACKAGES ******** ${COLOROUT}
+RUN apt-get update && apt-get install -y --no-install-recommends \
 usbutils \
 android-tools-* \
 fastboot
 
-RUN ${COLORIN} ******* CLEANING ******** ${COLOROUT} && \
-apt-get --purge autoremove -y && \
+RUN ${COLORIN} ******* CLEANING ******** ${COLOROUT}
+RUN apt-get --purge autoremove -y && \
 apt-get autoclean -y && \
 rm /etc/apt/sources.list && \
 rm -rf /var/cache/apt/archives/* && \
