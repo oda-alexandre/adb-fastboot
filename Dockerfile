@@ -4,8 +4,8 @@ MAINTAINER https://www.oda-alexandre.com/
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m'
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
+apt-get update && apt-get install -y --no-install-recommends \
 usbutils \
 android-tools-* \
 fastboot
@@ -17,4 +17,5 @@ rm /etc/apt/sources.list && \
 rm -rf /var/cache/apt/archives/* && \
 rm -rf /var/lib/apt/lists/*
 
+RUN echo -e '\033[36;1m ******* CONTAINER START COMMAND ******** \033[0m'
 ENTRYPOINT /bin/bash \
