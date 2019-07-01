@@ -43,7 +43,12 @@ container_scanning:
   script:
     - echo -e '\033[36;1m ******* TEST CONTAINER SCANNING ******** \033[0m'
     - docker run -d --name db arminc/clair-db:latest
-    - docker run -p 6060:6060 --link db:postgres -d --name clair --restart on-failure arminc/clair-local-scan:${CLAIR_LOCAL_SCAN_VERSION}
+    - docker run -d
+        -p 6060:6060
+        --link db:postgres
+        --name clair
+        --restart on-failure
+        arminc/clair-local-scan:${CLAIR_LOCAL_SCAN_VERSION}
     - apk add -U wget ca-certificates
     - docker pull $CI_REGISTRY_IMAGE
     - wget https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64
@@ -103,7 +108,8 @@ test_fastboot:
   script:
     - echo -e '\033[36;1m ******* TEST RUN FASTBOOT ******** \033[0m'
     - docker pull $CI_REGISTRY_IMAGE
-    - docker run --rm $CI_REGISTRY_IMAGE /bin/bash fastboot --v
+    - docker run --rm $CI_REGISTRY_IMAGE
+        fastboot --v
 
 test_adb:
   stage: test
@@ -111,6 +117,7 @@ test_adb:
   script:
     - echo -e '\033[36;1m ******* TEST RUN ADB ******** \033[0m'
     - docker pull $CI_REGISTRY_IMAGE
-    - docker run --rm $CI_REGISTRY_IMAGE /bin/bash adb version
+    - docker run --rm $CI_REGISTRY_IMAGE
+        adb version
   only:
     - master
