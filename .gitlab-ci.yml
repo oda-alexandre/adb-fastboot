@@ -142,6 +142,7 @@ deploy:
   allow_failure: false
   script:
     - echo -e '\033[36;1m ******* DEPLOYMENT ******** \033[0m'
+    - apk add --no-cache git
     - git push production HEAD:master
   when: on_success
   only:
