@@ -145,4 +145,3 @@ deploy:
   when: on_success
   only:
     - master
-test
