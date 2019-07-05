@@ -6,7 +6,6 @@ services:
 stages:
   - build
   - test
-  - staging
   - deploy
 
 variables:
@@ -138,22 +137,11 @@ test_adb:
   only:
     - dev
 
-staging:
-  stage: staging
-  allow_failure: false
-  script:
-    - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
-  when: on_success
-  only:
-  - merge_requests
-
 deploy:
   stage: deploy
   allow_failure: false
   script:
     - echo -e '\033[36;1m ******* DEPLOYMENT ******** \033[0m'
-  environment:
-    name: production
   when: on_success
   only:
     - master
