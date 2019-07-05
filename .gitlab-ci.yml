@@ -6,6 +6,8 @@ services:
 stages:
   - build
   - test
+  - staging
+  - deploy
 
 variables:
   DOCKER_DRIVER: overlay2
