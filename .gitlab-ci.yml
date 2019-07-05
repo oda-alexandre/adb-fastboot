@@ -6,8 +6,6 @@ services:
 stages:
   - build
   - test
-  - staging
-  - deploy
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -32,11 +30,12 @@ code_quality:
   allow_failure: false
   script:
     - echo -e '\033[36;1m ******* TEST CODE QUALITY ******** \033[0m'
-    - docker run --rm
+    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+    - docker run
         --env SOURCE_CODE="$PWD"
         --volume $PWD:/code
         --volume /var/run/docker.sock:/var/run/docker.sock
-        registry.gitlab.com/gitlab-org/security-products/codequality:${VERSION:-latest} /code
+        "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
   artifacts:
       paths: [gl-code-quality-report.json]
   only:
