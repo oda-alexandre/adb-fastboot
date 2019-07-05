@@ -6,6 +6,7 @@ services:
 stages:
   - build
   - test
+  - deploy
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -22,6 +23,8 @@ build:
     - echo -e '\033[36;1m ******* DOCKER BUILD IMAGE ******** \033[0m'
     - docker build -t $CI_REGISTRY_IMAGE .
     - docker push $CI_REGISTRY_IMAGE
+  only:
+    - branches
 
 code_quality:
   stage: test
@@ -33,9 +36,11 @@ code_quality:
         --env SOURCE_CODE="$PWD"
         --volume $PWD:/code
         --volume /var/run/docker.sock:/var/run/docker.sock
-        "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
+        "registry.gitlab.com/gitlab-org/security-products/codequality:${VERSION:-latest}" /code
   artifacts:
       paths: [gl-code-quality-report.json]
+  only:
+    - dev
 
 container_scanning:
   stage: test
@@ -61,6 +66,8 @@ container_scanning:
     - ./clair-scanner -c http://docker:6060 --ip $(hostname -i) -r gl-container-scanning-report.json -l clair.log -w clair-whitelist.yml $CI_REGISTRY_IMAGE || true
   artifacts:
       paths: [gl-container-scanning-report.json]
+  only:
+    - dev
 
 # dependency_scanning:
 #   stage: test
@@ -75,6 +82,8 @@ container_scanning:
 #         "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
 #   artifacts:
 #       paths: [gl-dependency-scanning-report.json]
+#   only:
+#     - dev
 
 sast:
   stage: test
@@ -89,6 +98,8 @@ sast:
         "registry.gitlab.com/gitlab-org/security-products/sast:$SP_VERSION" /app/bin/run /code
   artifacts:
     paths: [gl-sast-report.json]
+  only:
+    - dev
 
 license_management:
   stage: test
@@ -101,6 +112,8 @@ license_management:
         "registry.gitlab.com/gitlab-org/security-products/license-management:$LICENSE_MANAGEMENT_VERSION" analyze /code
   artifacts:
     paths: [gl-license-management-report.json]
+  only:
+    - dev
 
 test_fastboot:
   stage: test
@@ -110,6 +123,8 @@ test_fastboot:
     - docker pull $CI_REGISTRY_IMAGE
     - docker run --rm $CI_REGISTRY_IMAGE
         fastboot --v
+  only:
+    - dev
 
 test_adb:
   stage: test
@@ -119,5 +134,14 @@ test_adb:
     - docker pull $CI_REGISTRY_IMAGE
     - docker run --rm $CI_REGISTRY_IMAGE
         adb version
+  only:
+    - dev
+
+deploy:
+  stage: deploy
+  allow_failure: false
+  script:
+    - echo -e '\033[36;1m ******* DEPLOYMENT ******** \033[0m'
+  when: on_success
   only:
     - master
