@@ -139,19 +139,18 @@ test_adb:
 
 staging:
   stage: staging
+  when: on_success
   allow_failure: false
   script:
     - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
-  when: on_success
   only:
-  - merge_requests
+    - merge_requests
 
-
-deploy:
+deploy_successfully:
   stage: deploy
   when: on_success
   allow_failure: false
   script:
-    - echo -e '\033[36;1m ******* DEPLOYMENT ******** \033[0m'
+    - echo -e '\033[36;1m ******* DEPLOYMENT FINISHED SUCCESSFULLY ******** \033[0m'
   only:
     - master
