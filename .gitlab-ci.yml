@@ -143,10 +143,15 @@ staging:
   allow_failure: false
   script:
     - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
-  only:
-    - merge_requests
+    - apk add --no-cache git
+    - git push -u origin -o merge_request.create
+        -o merge_request.target=master
+        -o merge_request.merge_when_pipeline_succeeds
 
-deploy_successfully:
+  only:
+    - dev
+
+deploy:
   stage: deploy
   when: on_success
   allow_failure: false
