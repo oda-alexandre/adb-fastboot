@@ -147,7 +147,8 @@ test_adb:
 #     - merge_requests
 
 enable_merge:
-  only: merge_requests
+  only:
+    - merge_requests
   script:
     - echo true
 
