@@ -139,18 +139,20 @@ build:
 
 staging:
   stage: staging
+  when: on_success
   allow_failure: false
   script:
     - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
-  when: on_success
+    - apk add --no-cache git
+    - git merge -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD origin HEAD:master
   only:
-    - merge_requests
+    - dev
 
 deploy:
   stage: deploy
+  when: on_success
   allow_failure: false
   script:
-    - echo -e '\033[36;1m ******* DEPLOYMENT ******** \033[0m'
-  when: on_success
+    - echo -e '\033[36;1m ******* DEPLOYMENT FINISHED SUCCESSFULLY ******** \033[0m'
   only:
     - master
