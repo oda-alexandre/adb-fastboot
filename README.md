@@ -1,4 +1,4 @@
-# ANDROID ROOT TOOLS
+# ADB FASTBOOT
 
 <img src="https://huawei-gadgetsacademy.netdna-ssl.com/wp-content/uploads/2017/03/ADB-and-Fastboot-drivers1.png" width="300" height="200"/>
 
