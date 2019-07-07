@@ -149,3 +149,8 @@ staging:
 deploy:
   stage: deploy
   allow_failure: false
+  script:
+    - echo -e '\033[36;1m ******* DEPLOYMENT ******** \033[0m'
+  when: on_success
+  only:
+    - master
