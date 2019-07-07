@@ -137,13 +137,16 @@ test_adb:
   only:
     - dev
 
-enable_merge:
+staging:
   stage: staging
+  when: on_success
   allow_failure: false
-  only: merge_requests
   script:
-    - echo true
-
+    - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
+    - apk add --no-cache git
+    - git push origin -u $CI_DEPLOY_USER -p $CI_DEPLOY_PASSWORD HEAD:master
+  only:
+    - dev
 
 deploy:
   stage: deploy
