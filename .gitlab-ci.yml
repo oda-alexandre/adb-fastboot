@@ -143,10 +143,14 @@ staging:
   allow_failure: false
   script:
     - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
-    # - apk add --no-cache git
-    # - git merge $CI_DEPLOY_USER $CI_DEPLOY_PASSWORD origin/$CI_DEPLOY_USER/master
   only:
-    - dev
+    - merge_requests
+
+enable_merge:
+  only:
+    - merge_requests
+  script:
+    - echo true
 
 deploy:
   stage: deploy
