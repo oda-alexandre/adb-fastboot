@@ -30,6 +30,5 @@ sudo rm /etc/apt/sources.list && \
 sudo rm -rf /var/cache/apt/archives/* && \
 sudo rm -rf /var/lib/apt/lists/*
 
-
 RUN echo -e '\033[36;1m ******* CONTAINER START COMMAND ******** \033[0m'
 ENTRYPOINT /bin/bash \
