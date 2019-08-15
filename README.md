@@ -1,42 +1,49 @@
-# ANDROID ROOT TOOLS
+# ADB FASTBOOT
+
+<img src="https://huawei-gadgetsacademy.netdna-ssl.com/wp-content/uploads/2017/03/ADB-and-Fastboot-drivers1.png" width="300" height="200"/>
 
 
 ## INDEX
 
 - [Badges](#BADGES)
 - [Introduction](#INTRODUCTION)
-- [Prerequis](#PREREQUIS)
-- [Installation](#INSTALLATION)
+- [Prerequisites](#PREREQUISITESITES)
+- [Install](#INSTALL)
 - [License](#LICENSE)
 
 
 ## BADGES
 
-[![pipeline status](https://gitlab.com/oda-alexandre/android-root-tools/badges/master/pipeline.svg)](https://gitlab.com/oda-alexandre/android-root-tools/commits/master)
+[![pipeline status](https://gitlab.com/oda-alexandre/adb-fastboot/badges/master/pipeline.svg)](https://gitlab.com/oda-alexandre/adb-fastboot/commits/master)
 
 
 ## INTRODUCTION
 
-Ce repository contient le fichier Dockerfile avec
+Docker image of :
 
 - [adb & fatsboot](https://www.phonandroid.com/adb-fastboot-android-a-quoi-ca-sert-comment-telecharger.html)
-- [heimdall](http://heimdall-download.com/)
 
-mis à jour automatiquement dans le [docker hub public](https://hub.docker.com/r/alexandreoda/android-root-tools/).
+Continuous integration on :
+
+- [gitlab](https://gitlab.com/oda-alexandre/adb-fastboot/pipelines)
+
+Automatically updated on :
+
+- [docker hub public](https://hub.docker.com/r/alexandreoda/adb-fastboot/)
 
 
-## PREREQUIS
+## PREREQUISITES
 
-Installer [docker](https://www.docker.com)
+- Use [docker](https://www.docker.com)
 
 
-## INSTALLATION
+## INSTALL
 
 ```
-docker run -ti --rm --name android-root-tools -v ${HOME}:/home/android -v /tmp/.X11-unix/:/tmp/.X11-unix/ -v /dev/bus/usb:/dev/bus/usb --privileged --env=QT_X11_NO_MITSHM=1 -v ${XAUTHORITY}:/xauthority:ro -e XAUTHORITY='/xauthority' -e DISPLAY alexandreoda/android-root-tools
+docker run -ti --rm --name adb-fastboot -v ${HOME}:/root -v /dev/bus/usb:/dev/bus/usb --privileged alexandreoda/adb-fastboot
 ```
 
 
 ## LICENSE
 
-[![GPLv3+](http://gplv3.fsf.org/gplv3-127x51.png)](https://github.com/oda-alexandre/android-root-tools/blob/master/LICENSE)
+[![GPLv3+](http://gplv3.fsf.org/gplv3-127x51.png)](https://gitlab.com/oda-alexandre/adb-fastboot/blob/master/LICENSE)
