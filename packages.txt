@@ -1,0 +1,4 @@
+sudo
+usbutils
+android-tools-*
+fastboot
