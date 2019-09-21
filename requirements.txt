@@ -1,8 +1,5 @@
 sudo
 usbutils
 android-tools-adb
-android-tools-adbd
 android-tools-fastboot
-android-tools-fsutils
-android-tools-mkbootimg
 fastboot
