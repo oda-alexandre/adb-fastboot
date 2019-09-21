@@ -5,11 +5,12 @@ LABEL authors https://www.oda-alexandre.com/
 ENV USER adb
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m'
-COPY ./requirements.txt  ./requirements.txt
-RUN apt-get update && \
-sed 's/#.*//' requirements.txt | xargs apt-get install -y --no-install-recommends && \
-rm requirements.txt
+RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m' && \
+apt update && apt install -y --no-install-recommends \
+sudo \
+usbutils \
+android-tools-* \
+fastboot
 
 RUN echo -e '\033[36;1m ******* ADD USER ******** \033[0m' && \
 useradd -d /home/${USER} -m ${USER} && \

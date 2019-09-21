@@ -1,5 +1,0 @@
-sudo
-usbutils
-android-tools-adb
-android-tools-fastboot
-fastboot
