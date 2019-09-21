@@ -6,10 +6,10 @@ ENV USER adb
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo -e '\033[36;1m ******* INSTALL PACKAGES ******** \033[0m'
-COPY ./packages.txt  ./packages.txt
+COPY ./requirements.txt  ./requirements.txt
 RUN apt-get update && \
-sed 's/#.*//' packages.txt | xargs apt-get install -y --no-install-recommends && \
-rm packages.txt
+sed 's/#.*//' requirements.txt | xargs apt-get install -y --no-install-recommends && \
+rm requirements.txt
 
 RUN echo -e '\033[36;1m ******* ADD USER ******** \033[0m' && \
 useradd -d /home/${USER} -m ${USER} && \
