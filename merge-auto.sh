@@ -8,7 +8,7 @@
 set -e
 
 # Check if the GitLab Private Token exist  
-if [ -z "$GITLAB_PRIVATE_TOKEN" ]; then
+if [ -z "$PRIVATE_TOKEN" ]; then
   echo -e '\033[36;1m PRIVATE_TOKEN not set \033[0m'
   echo -e '\033[36;1m Please set the GitLab Private Token as PRIVATE_TOKEN \033[0m'
   exit 1
