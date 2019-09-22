@@ -1,8 +1,18 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-# Provides:          autoMergeRequest
+# Provides:          merge-auto
+# Authors:           https://www.oda-alexandre.com/
 # Short-Description: Merge Auto GitLab Pipeline
 # Description: merge auto when pipeline succeeds
+
+set -e
+
+# Check if the GitLab Private Token exist  
+if [ -z "$GITLAB_PRIVATE_TOKEN" ]; then
+  echo -e '\033[36;1m PRIVATE_TOKEN not set \033[0m'
+  echo -e '\033[36;1m Please set the GitLab Private Token as PRIVATE_TOKEN \033[0m'
+  exit 1
+fi
 
 # Extract the host where the server is running, and add the URL to the APIs
 [[ $HOST =~ ^https?://[^/]+ ]] && HOST="${BASH_REMATCH[0]}/api/v4/projects/"
