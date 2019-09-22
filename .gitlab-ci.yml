@@ -143,8 +143,6 @@ staging:
   when: on_success
   allow_failure: false
   image: tmaier/gitlab-auto-merge-request:1
-  variable : 
-    GIT_STRATEGY: none
   script:
     - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
     - HOST=${CI_PROJECT_URL} CI_PROJECT_ID=${CI_PROJECT_ID} CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME} GITLAB_USER_ID=${GITLAB_USER_ID} PRIVATE_TOKEN=${PRIVATE_TOKEN} ./merge-auto.sh
