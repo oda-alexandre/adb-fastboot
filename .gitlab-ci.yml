@@ -144,8 +144,7 @@ staging:
   image: alexandreoda/gitlab_auto_merge_request
   script:
     - echo -e '\033[36;1m ******* OPENING MERGE REQUEST ******** \033[0m'
-    docker run --rm ${CI_REGISTRY_IMAGE}
-        cupp --version
+    - merge-request.sh
   only:
     - dev
 
