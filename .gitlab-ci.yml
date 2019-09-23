@@ -1,4 +1,4 @@
-image: docker:stable
+
 
 services:
   - docker:dind
@@ -20,6 +20,7 @@ before_script:
 build:
   stage: build
   allow_failure: false
+  image: docker:stable
   script:
     - echo -e '\033[36;1m ******* DOCKER BUILD IMAGE ******** \033[0m'
     - docker build -t ${CI_REGISTRY_IMAGE} .
@@ -141,7 +142,7 @@ staging:
   stage: staging
   when: on_success
   allow_failure: false
-  # image: alexandreoda/gitlab_auto_merge_request
+  image: alexandreoda/gitlab_auto_merge_request
   script:
     - echo -e '\033[36;1m ******* OPENING MERGE REQUEST ******** \033[0m'
     - docker run --rm alexandreoda/gitlab_auto_merge_request
@@ -152,6 +153,7 @@ deploy:
   stage: deploy
   when: on_success
   allow_failure: false
+  image: docker:stable
   script:
     - echo -e '\033[36;1m ******* DEPLOYMENT FINISHED SUCCESSFULLY ******** \033[0m'
   only:
