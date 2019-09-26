@@ -1,5 +1,3 @@
-image: docker:stable
-
 services:
   - docker:dind
 
@@ -13,23 +11,23 @@ variables:
   DOCKER_DRIVER: overlay2
   CLAIR_LOCAL_SCAN_VERSION: v2.0.8_fe9b059d930314b54c78f75afe265955faf4fdc1
 
-before_script:
-  - echo -e '\033[36;1m ******* DOCKER LOGIN REGISTRY ******** \033[0m'
-  - docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
-
 build:
   stage: build
-  allow_failure: false
+  image: docker:stable
+  before_script:
+    - echo -e '\033[36;1m ******* DOCKER LOGIN REGISTRY ******** \033[0m'
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
     - echo -e '\033[36;1m ******* DOCKER BUILD IMAGE ******** \033[0m'
-    - docker build -t ${CI_REGISTRY_IMAGE} .
-    - docker push ${CI_REGISTRY_IMAGE}
+    - docker build --tag "$BUILD_IMAGE_NAME" .
+    - docker push "$BUILD_IMAGE_NAME"
   only:
     - dev
 
 code_quality:
   stage: test
   allow_failure: false
+  image: docker:stable
   script:
     - echo -e '\033[36;1m ******* TEST CODE QUALITY ******** \033[0m'
     - docker run
@@ -45,6 +43,7 @@ code_quality:
 container_scanning:
   stage: test
   allow_failure: false
+  image: docker:stable
   script:
     - echo -e '\033[36;1m ******* TEST CONTAINER SCANNING ******** \033[0m'
     - docker run -d --name db arminc/clair-db:latest
@@ -88,6 +87,7 @@ container_scanning:
 sast:
   stage: test
   allow_failure: false
+  image: docker:stable
   script:
     - echo -e '\033[36;1m ******* TEST SAST ******** \033[0m'
     - export SP_VERSION=$(echo "${CI_SERVER_VERSION}" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
@@ -104,6 +104,7 @@ sast:
 license_management:
   stage: test
   allow_failure: false
+  image: docker:stable
   script:
     - echo -e '\033[36;1m ******* TEST LICENSE MANAGEMENT ******** \033[0m'
     - export LICENSE_MANAGEMENT_VERSION=$(echo "${CI_SERVER_VERSION}" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
@@ -118,22 +119,20 @@ license_management:
 test_fastboot:
   stage: test
   allow_failure: false
+  image: "$BUILD_IMAGE_NAME"
   script:
     - echo -e '\033[36;1m ******* TEST RUN FASTBOOT ******** \033[0m'
-    - docker pull ${CI_REGISTRY_IMAGE}
-    - docker run --rm ${CI_REGISTRY_IMAGE}
-        fastboot --v
+    - fastboot --v
   only:
     - dev
 
 test_adb:
   stage: test
   allow_failure: false
+  image: "$BUILD_IMAGE_NAME"
   script:
     - echo -e '\033[36;1m ******* TEST RUN ADB ******** \033[0m'
-    - docker pull ${CI_REGISTRY_IMAGE}
-    - docker run --rm ${CI_REGISTRY_IMAGE}
-        adb version
+    - adb version
   only:
     - dev
 
@@ -141,17 +140,16 @@ staging:
   stage: staging
   when: on_success
   allow_failure: false
+  image: alexandreoda/gitlab_auto_merge_request
+  variables:
+    HOST: ${CI_PROJECT_URL} 
+    CI_PROJECT_ID: ${CI_PROJECT_ID} 
+    CI_COMMIT_REF_NAME: ${CI_COMMIT_REF_NAME} 
+    GITLAB_USER_ID: ${GITLAB_USER_ID} 
+    PRIVATE_TOKEN: ${MERGE_REQUEST} 
   script:
     - echo -e '\033[36;1m ******* OPENING MERGE REQUEST ******** \033[0m'
-    - docker run --rm
-        --volume ${PWD}:/code
-        alexandreoda/gitlab_auto_merge_request
-        HOST=${CI_PROJECT_URL} 
-        CI_PROJECT_ID=${CI_PROJECT_ID} 
-        CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME} 
-        GITLAB_USER_ID=${GITLAB_USER_ID} 
-        PRIVATE_TOKEN=${PRIVATE_TOKEN} 
-        merge-request.sh
+    - merge-request.sh
   only:
     - dev
 
