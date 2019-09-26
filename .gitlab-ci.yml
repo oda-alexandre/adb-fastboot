@@ -19,8 +19,8 @@ build:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   script:
     - echo -e '\033[36;1m ******* DOCKER BUILD IMAGE ******** \033[0m'
-    - docker build -t "$BUILD_IMAGE_NAME" .
-    - docker push "$BUILD_IMAGE_NAME"
+    - docker build -t "$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY_IMAGE"
   only:
     - dev
 
@@ -119,7 +119,7 @@ license_management:
 test_fastboot:
   stage: test
   allow_failure: false
-  image: "$BUILD_IMAGE_NAME"
+  image: "$CI_REGISTRY_IMAGE"
   script:
     - echo -e '\033[36;1m ******* TEST RUN FASTBOOT ******** \033[0m'
     - fastboot --v
@@ -129,7 +129,7 @@ test_fastboot:
 test_adb:
   stage: test
   allow_failure: false
-  image: "$BUILD_IMAGE_NAME"
+  image: "$CI_REGISTRY_IMAGE"
   script:
     - echo -e '\033[36;1m ******* TEST RUN ADB ******** \033[0m'
     - adb version
