@@ -144,9 +144,8 @@ staging:
   script:
     - echo -e '\033[36;1m ******* OPENING MERGE REQUEST ******** \033[0m'
     - docker run --rm
-        -v ${PWD}:/code
+        --volume ${PWD}:/code
         alexandreoda/gitlab_auto_merge_request
-        ${CI_REGISTRY_IMAGE}
         HOST=${CI_PROJECT_URL} 
         CI_PROJECT_ID=${CI_PROJECT_ID} 
         CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME} 
