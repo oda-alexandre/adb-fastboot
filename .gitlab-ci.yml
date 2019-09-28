@@ -146,7 +146,7 @@ staging:
     - merge-request.sh
   only:
     - dev
- 
+
 deploy:
   stage: deploy
   when: on_success
