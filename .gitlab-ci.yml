@@ -1,8 +1,5 @@
-image: docker:stable
-
 services:
   - docker:dind
-
 
 stages:
   # - build
@@ -143,7 +140,7 @@ staging:
   stage: staging
   when: on_success
   allow_failure: false
-  image: msonowal/gitlab-auto-mr
+  image: tmaier/gitlab-auto-merge-request
   script:
     - echo -e '\033[36;1m ******* OPENING MERGE REQUEST ******** \033[0m'
     - merge-request.sh
