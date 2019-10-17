@@ -43,7 +43,6 @@ Automatically updated on :
 docker run -ti --rm --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb --privileged alexandreoda/adb-fastboot
 ```
 
-
 ## LICENSE
 
 [![GPLv3+](http://gplv3.fsf.org/gplv3-127x51.png)](https://gitlab.com/oda-alexandre/adb-fastboot/blob/master/LICENSE)
