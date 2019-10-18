@@ -2,6 +2,7 @@
 
 <img src="https://huawei-gadgetsacademy.netdna-ssl.com/wp-content/uploads/2017/03/ADB-and-Fastboot-drivers1.png" width="300" height="200"/>
 
+
 ## INDEX
 
 - [Badges](#BADGES)
@@ -10,9 +11,11 @@
 - [Install](#INSTALL)
 - [License](#LICENSE)
 
+
 ## BADGES
 
 [![pipeline status](https://gitlab.com/oda-alexandre/adb-fastboot/badges/master/pipeline.svg)](https://gitlab.com/oda-alexandre/adb-fastboot/commits/master)
+
 
 ## INTRODUCTION
 
@@ -28,9 +31,11 @@ Automatically updated on :
 
 - [docker hub public](https://hub.docker.com/r/alexandreoda/adb-fastboot/)
 
+
 ## PREREQUISITES
 
 - Use [docker](https://www.docker.com)
+
 
 ## INSTALL
 
