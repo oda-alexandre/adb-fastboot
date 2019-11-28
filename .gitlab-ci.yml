@@ -143,7 +143,13 @@ staging:
   script:
     - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
   only:
-    - dev
+    - merge_requests
+
+enable_merge:
+  only:
+    - merge_requests
+  script:
+    - echo true
 
 deploy:
   stage: deploy
