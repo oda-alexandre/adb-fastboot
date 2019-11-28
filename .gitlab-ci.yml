@@ -145,7 +145,12 @@ staging:
   only:
     - dev
 
-
+enable_merge:
+  only:
+    - merge_requests
+  script:
+    - echo true
+    
 deploy:
   stage: deploy
   when: on_success
