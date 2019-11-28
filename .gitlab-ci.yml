@@ -136,20 +136,21 @@ test_adb:
   only:
     - dev
 
+# staging:
+#   stage: staging
+#   when: on_success
+#   allow_failure: false
+#   script:
+#     - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
+#   only:
+#     - dev
+
 staging:
   stage: staging
-  when: on_success
-  allow_failure: false
-  script:
-    - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
-  only:
-    - dev
-
-enable_merge:
-  only:
-    - merge_requests
   script:
     - echo true
+  only:
+    - merge_requests
     
 deploy:
   stage: deploy
