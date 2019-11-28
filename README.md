@@ -5,11 +5,13 @@
 
 ## INDEX
 
-- [Badges](#BADGES)
-- [Introduction](#INTRODUCTION)
-- [Prerequisites](#PREREQUISITESITES)
-- [Install](#INSTALL)
-- [License](#LICENSE)
+- [ADB FASTBOOT](#adb-fastboot)
+  - [INDEX](#index)
+  - [BADGES](#badges)
+  - [INTRODUCTION](#introduction)
+  - [PREREQUISITES](#prerequisites)
+  - [INSTALL](#install)
+  - [LICENSE](#license)
 
 
 ## BADGES
@@ -39,9 +41,7 @@ Automatically updated on :
 
 ## INSTALL
 
-```
-docker run -ti --rm --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb --privileged alexandreoda/adb-fastboot
-```
+```docker run -ti --rm --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb --privileged alexandreoda/adb-fastboot```
 
 
 ## LICENSE
