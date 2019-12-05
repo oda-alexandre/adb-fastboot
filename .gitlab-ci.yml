@@ -1,26 +1,18 @@
-services:
-  - docker:dind
-
 stages:
   - build
   - test
   - staging
   - deploy
 
-variables:
-  DOCKER_DRIVER: overlay2
-  CLAIR_LOCAL_SCAN_VERSION: v2.0.8_fe9b059d930314b54c78f75afe265955faf4fdc1
-
 build:
   stage: build
+  allow_failure: false
   image: docker:stable
-  before_script:
-    - echo -e '\033[36;1m ******* DOCKER LOGIN REGISTRY ******** \033[0m'
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  services:
+    - docker:dind
   script:
     - echo -e '\033[36;1m ******* DOCKER BUILD IMAGE ******** \033[0m'
-    - docker build -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
+    - docker build -t ${CI_PROJECT_NAME} .
   only:
     - dev
 
@@ -28,6 +20,8 @@ code_quality:
   stage: test
   allow_failure: false
   image: docker:stable
+  services:
+    - docker:dind
   script:
     - echo -e '\033[36;1m ******* TEST CODE QUALITY ******** \033[0m'
     - docker run
@@ -44,6 +38,10 @@ container_scanning:
   stage: test
   allow_failure: false
   image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    CLAIR_LOCAL_SCAN_VERSION: v2.0.8_fe9b059d930314b54c78f75afe265955faf4fdc1
   script:
     - echo -e '\033[36;1m ******* TEST CONTAINER SCANNING ******** \033[0m'
     - docker run -d --name db arminc/clair-db:latest
@@ -54,7 +52,7 @@ container_scanning:
         --restart on-failure
         arminc/clair-local-scan:${CLAIR_LOCAL_SCAN_VERSION}
     - apk add -U wget ca-certificates
-    - docker pull ${CI_REGISTRY_IMAGE}
+    - docker build -t ${CI_PROJECT_NAME} .
     - wget https://github.com/arminc/clair-scanner/releases/download/v8/clair-scanner_linux_amd64
     - mv clair-scanner_linux_amd64 clair-scanner
     - chmod +x clair-scanner
@@ -68,26 +66,12 @@ container_scanning:
   only:
     - dev
 
-# dependency_scanning:
-#   stage: test
-#   allow_failure: false
-#   script:
-#     - echo -e '\033[36;1m ******* TEST DEPENDENCY SCANNING ******** \033[0m'
-#     - export SP_VERSION=$(echo "${CI_SERVER_VERSION}" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
-#     - docker run
-#         --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}"
-#         --volume ${PWD}:/code
-#         --volume /var/run/docker.sock:/var/run/docker.sock
-#         "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
-#   artifacts:
-#       paths: [gl-dependency-scanning-report.json]
-#   only:
-#     - dev
-
 sast:
   stage: test
   allow_failure: false
   image: docker:stable
+  services:
+    - docker:dind
   script:
     - echo -e '\033[36;1m ******* TEST SAST ******** \033[0m'
     - export SP_VERSION=$(echo "${CI_SERVER_VERSION}" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
@@ -105,6 +89,8 @@ license_management:
   stage: test
   allow_failure: false
   image: docker:stable
+  services:
+    - docker:dind
   script:
     - echo -e '\033[36;1m ******* TEST LICENSE MANAGEMENT ******** \033[0m'
     - export LICENSE_MANAGEMENT_VERSION=$(echo "${CI_SERVER_VERSION}" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
@@ -119,37 +105,66 @@ license_management:
 test_fastboot:
   stage: test
   allow_failure: false
-  image: "$CI_REGISTRY_IMAGE"
+  image: docker:stable
+  services:
+    - docker:dind
   script:
-    - echo -e '\033[36;1m ******* TEST RUN FASTBOOT ******** \033[0m'
-    - fastboot --v
+    - echo -e '\033[36;1m ******* TEST FASTBOOT ******** \033[0m'
+    - docker build -t ${CI_PROJECT_NAME} .
+    - docker run --rm ${CI_PROJECT_NAME} 
+        fastboot --v
   only:
     - dev
 
 test_adb:
   stage: test
   allow_failure: false
-  image: "$CI_REGISTRY_IMAGE"
+  image: docker:stable
+  services:
+    - docker:dind
   script:
     - echo -e '\033[36;1m ******* TEST RUN ADB ******** \033[0m'
-    - adb version
+    - docker build -t ${CI_PROJECT_NAME} .
+    - docker run --rm ${CI_PROJECT_NAME}
+        adb version
   only:
     - dev
 
-staging:
+open_merge:
   stage: staging
-  when: on_success
   allow_failure: false
+  image: alexandreoda/gitlab_auto_merge_requests
   script:
-    - echo -e '\033[36;1m ******* STAGING ******** \033[0m'
-  only:
+    - echo -e '\033[36;1m ******* OPEN MERGE REQUEST ******** \033[0m'
+    - docker run --rm
+        --env CI_PROJECT_ID=${CI_PROJECT_ID}
+        --env CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME}
+        --env CI_DEFAULT_BRANCH=${CI_DEFAULT_BRANCH}
+        --env GITLAB_USER_ID=${GITLAB_USER_ID}
+        --env PRIVATE_TOKEN=${PRIVATE_TOKEN}
+        bash auto_merge_requests.sh --open
+  only: 
     - dev
+
+enable_merge:
+  stage: deploy
+  allow_failure: false
+  image: alexandreoda/gitlab_auto_merge_requests
+  script:
+    - echo -e '\033[36;1m ******* ENABLE MERGE WHEN PIPELINE SUCCEEDS ******** \033[0m'
+    - docker run --rm
+        --env CI_PROJECT_ID=${CI_PROJECT_ID}
+        --env CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME}
+        --env CI_DEFAULT_BRANCH=${CI_DEFAULT_BRANCH}
+        --env GITLAB_USER_ID=${GITLAB_USER_ID}
+        --env PRIVATE_TOKEN=${PRIVATE_TOKEN}
+        bash auto_merge_requests.sh --enable
+  only: 
+    - merge_requests
 
 deploy:
   stage: deploy
-  when: on_success
-  allow_failure: false
   script:
     - echo -e '\033[36;1m ******* DEPLOYMENT FINISHED SUCCESSFULLY ******** \033[0m'
-  only:
+  only: 
     - master
