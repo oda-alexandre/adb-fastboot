@@ -112,7 +112,7 @@ test_fastboot:
     - echo -e '\033[36;1m ******* TEST FASTBOOT ******** \033[0m'
     - docker build -t ${CI_PROJECT_NAME} .
     - docker run --rm ${CI_PROJECT_NAME} 
-        fastboot --v
+        fastboot --version
   only:
     - dev
 
@@ -133,7 +133,9 @@ test_adb:
 open_merge:
   stage: staging
   allow_failure: false
-  image: alexandreoda/gitlab_auto_merge_requests
+  image: docker:stable
+  services:
+    - docker:dind
   script:
     - echo -e '\033[36;1m ******* OPEN MERGE REQUEST ******** \033[0m'
     - docker run --rm
@@ -142,6 +144,7 @@ open_merge:
         --env CI_DEFAULT_BRANCH=${CI_DEFAULT_BRANCH}
         --env GITLAB_USER_ID=${GITLAB_USER_ID}
         --env PRIVATE_TOKEN=${PRIVATE_TOKEN}
+        alexandreoda/gitlab_auto_merge_requests
         bash auto_merge_requests.sh --open
   only: 
     - dev
@@ -149,7 +152,9 @@ open_merge:
 enable_merge:
   stage: deploy
   allow_failure: false
-  image: alexandreoda/gitlab_auto_merge_requests
+  image: docker:stable
+  services:
+    - docker:dind
   script:
     - echo -e '\033[36;1m ******* ENABLE MERGE WHEN PIPELINE SUCCEEDS ******** \033[0m'
     - docker run --rm
@@ -158,6 +163,7 @@ enable_merge:
         --env CI_DEFAULT_BRANCH=${CI_DEFAULT_BRANCH}
         --env GITLAB_USER_ID=${GITLAB_USER_ID}
         --env PRIVATE_TOKEN=${PRIVATE_TOKEN}
+        alexandreoda/gitlab_auto_merge_requests
         bash auto_merge_requests.sh --enable
   only: 
     - merge_requests
