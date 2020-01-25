@@ -5,7 +5,6 @@
 
 ## INDEX
 
-- [ADB FASTBOOT](#adb-fastboot)
   - [INDEX](#index)
   - [BADGES](#badges)
   - [INTRODUCTION](#introduction)
@@ -41,7 +40,7 @@ Automatically updated on :
 
 ## INSTALL
 
-```docker run -ti --rm --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb --privileged alexandreoda/adb-fastboot```
+```docker run -ti --rm --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb --network host --privileged alexandreoda/adb-fastboot```
 
 
 ## LICENSE
