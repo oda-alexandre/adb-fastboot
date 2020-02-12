@@ -1,6 +1,6 @@
 # ADB FASTBOOT
 
-<img src="https://huawei-gadgetsacademy.netdna-ssl.com/wp-content/uploads/2017/03/ADB-and-Fastboot-drivers1.png" width="300" height="200"/>
+<img src="https://assets.gitlab-static.net/uploads/-/system/project/avatar/12904433/images.jpg" width="300" height="200"/>
 
 
 ## INDEX
