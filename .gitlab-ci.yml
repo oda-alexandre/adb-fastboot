@@ -120,7 +120,7 @@ date:
   allow_failure: false
   script:
     - echo -e '\033[36;1m ******* DATE ******** \033[0m'
-    - date=$(date +"%Y-%m-%d") && sed -i "s/^Date: .*/Date: $date/" README.md
+    - "date=$(date +\"%Y-%m-%d\") && sed -i \"s/^Date: .*/Date: $date/\" README.md"
   only:
     - dev
 
