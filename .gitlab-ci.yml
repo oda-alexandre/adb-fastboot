@@ -6,6 +6,7 @@ services:
 stages:
   - build
   - test
+  - date
   - staging
   - deploy
 
@@ -111,6 +112,15 @@ test_adb:
     - docker build -t ${CI_PROJECT_NAME} .
     - docker run --rm ${CI_PROJECT_NAME}
         adb version
+  only:
+    - dev
+
+date:
+  stage: date
+  allow_failure: false
+  script:
+    - echo -e '\033[36;1m ******* DATE ******** \033[0m'
+    - "date=$(date +\"%Y-%m-%d\") && sed -i \"s/^Date: .*/Date: $date/\" README.md"
   only:
     - dev
 
