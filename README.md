@@ -1,11 +1,10 @@
 # ADB FASTBOOT
 
-<img src="https://assets.gitlab-static.net/uploads/-/system/project/avatar/12904433/images.jpg" width="300" height="200"/>
-
+![logo](https://assets.gitlab-static.net/uploads/-/system/project/avatar/12904433/images.jpg)
 
 ## INDEX
 
-  - [INDEX](#index)
+- [INDEX](#index)
   - [BADGES](#badges)
   - [FIRST UPDATE](#first-update)
   - [INTRODUCTION](#introduction)
@@ -13,16 +12,13 @@
   - [INSTALL](#install)
   - [LICENSE](#license)
 
-
 ## BADGES
 
 [![pipeline status](https://gitlab.com/oda-alexandre/adb-fastboot/badges/master/pipeline.svg)](https://gitlab.com/oda-alexandre/adb-fastboot/commits/master)
 
-
 ## FIRST UPDATE
 
 Date: 01-01-01
-
 
 ## INTRODUCTION
 
@@ -38,16 +34,13 @@ Automatically updated on :
 
 - [docker hub public](https://hub.docker.com/r/alexandreoda/adb-fastboot/)
 
-
 ## PREREQUISITES
 
 - Use [docker](https://www.docker.com)
 
-
 ## INSTALL
 
 ```docker run -ti --rm --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb --network host --privileged alexandreoda/adb-fastboot```
-
 
 ## LICENSE
 
