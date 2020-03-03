@@ -4,11 +4,13 @@
 
 ## INDEX
 
-- [INDEX](#index)
+- [ADB FASTBOOT](#adb-fastboot)
+  - [INDEX](#index)
   - [BADGES](#badges)
   - [INTRODUCTION](#introduction)
   - [PREREQUISITES](#prerequisites)
   - [INSTALL](#install)
+    - [DOCKER RUN](#docker-run)
   - [LICENSE](#license)
 
 ## BADGES
@@ -35,7 +37,25 @@ Automatically updated on :
 
 ## INSTALL
 
-```docker run -ti --rm --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb --network host --privileged alexandreoda/adb-fastboot```
+### DOCKER RUN
+
+```docker run -ti --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb -p 5037:5037 alexandreoda/adb-fastboot```
+
+### DOCKER COMPOSE
+
+```yml
+version: "3.7"
+
+services:
+  adb-fastboot:
+    container_name: adb-fastboot
+    image: alexandreoda/adb-fastboot
+    ports:
+      - "5037:5037"
+    volumes:
+      - "${HOME}:/home/adb"
+      - "/dev/bus/usb:/dev/bus/usb"
+```
 
 ## LICENSE
 
