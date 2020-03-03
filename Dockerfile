@@ -10,8 +10,8 @@ RUN echo -e '\033[36;1m ******* INSTALL PREREQUISITES ******** \033[0m' && \
   sudo \
   usbutils \
   android-tools-* \
-  fastboot && \
-  \
+  fastboot \
+  && \
   echo -e '\033[36;1m ******* CLEANING ******** \033[0m' && \
   apt-get --purge autoremove -y && \
   apt-get autoclean -y && \
