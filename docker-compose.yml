@@ -4,6 +4,7 @@ services:
   adb-fastboot:
     container_name: adb-fastboot
     image: alexandreoda/adb-fastboot
+    privileged: false
     volumes:
       - "${HOME}:/home/adb"
       - "/dev/bus/usb:/dev/bus/usb"

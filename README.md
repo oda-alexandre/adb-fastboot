@@ -25,7 +25,7 @@ Docker image of :
 
 Continuous integration on :
 
-- [gitlab](https://gitlab.com/oda-alexandre/adb-fastboot/pipelines)
+- [gitlab pipelines](https://gitlab.com/oda-alexandre/adb-fastboot/pipelines)
 
 Automatically updated on :
 
@@ -50,6 +50,7 @@ services:
   adb-fastboot:
     container_name: adb-fastboot
     image: alexandreoda/adb-fastboot
+    privileged: false
     volumes:
       - "${HOME}:/home/adb"
       - "/dev/bus/usb:/dev/bus/usb"
