@@ -50,11 +50,11 @@ services:
   adb-fastboot:
     container_name: adb-fastboot
     image: alexandreoda/adb-fastboot
-    ports:
-      - "5037:5037"
     volumes:
       - "${HOME}:/home/adb"
       - "/dev/bus/usb:/dev/bus/usb"
+    ports:
+      - "5037:5037"
 ```
 
 ## LICENSE
