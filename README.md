@@ -40,7 +40,8 @@ Automatically updated on :
 
 ### DOCKER RUN
 
-```docker run -ti --rm --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb -p 5037:5037 alexandreoda/adb-fastboot
+```\
+docker  run -ti --rm --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb -p 5037:5037 alexandreoda/adb-fastboot
 ```
 
 ### DOCKER COMPOSE
