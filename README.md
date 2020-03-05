@@ -11,6 +11,7 @@
   - [PREREQUISITES](#prerequisites)
   - [INSTALL](#install)
     - [DOCKER RUN](#docker-run)
+    - [DOCKER COMPOSE](#docker-compose)
   - [LICENSE](#license)
 
 ## BADGES
@@ -39,7 +40,8 @@ Automatically updated on :
 
 ### DOCKER RUN
 
-```docker run -ti --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb -p 5037:5037 alexandreoda/adb-fastboot```
+```docker run -ti --rm --name adb-fastboot -v ${HOME}:/home/adb -v /dev/bus/usb:/dev/bus/usb -p 5037:5037 alexandreoda/adb-fastboot
+```
 
 ### DOCKER COMPOSE
 
@@ -50,6 +52,7 @@ services:
   adb-fastboot:
     container_name: adb-fastboot
     image: alexandreoda/adb-fastboot
+    restart: "no"
     privileged: false
     volumes:
       - "${HOME}:/home/adb"
