@@ -4,6 +4,7 @@ services:
   adb-fastboot:
     container_name: adb-fastboot
     image: alexandreoda/adb-fastboot
+    restart: "no"
     privileged: false
     volumes:
       - "${HOME}:/home/adb"
