@@ -2,8 +2,6 @@
 
 ![logo](https://assets.gitlab-static.net/uploads/-/system/project/avatar/12904433/images.jpg)
 
-## INDEX
-
 - [ADB FASTBOOT](#adb-fastboot)
   - [INDEX](#index)
   - [BADGES](#badges)
@@ -36,13 +34,14 @@ Automatically updated on :
 
 - Use [docker](https://www.docker.com)
 
-## INSTALL
+## BUILD
 
 ### DOCKER RUN
 
 ```\
 docker run -ti --rm \
 --name adb-fastboot \
+--privileged \
 -v ${HOME}:/home/adb \
 -v /dev/bus/usb:/dev/bus/usb \
 -p 5037:5037 \
@@ -59,7 +58,7 @@ services:
     container_name: adb-fastboot
     image: alexandreoda/adb-fastboot
     restart: "no"
-    privileged: false
+    privileged: true
     volumes:
       - "${HOME}:/home/adb"
       - "/dev/bus/usb:/dev/bus/usb"
