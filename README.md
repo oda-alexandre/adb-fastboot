@@ -3,11 +3,10 @@
 ![logo](https://assets.gitlab-static.net/uploads/-/system/project/avatar/12904433/images.jpg)
 
 - [ADB FASTBOOT](#adb-fastboot)
-  - [INDEX](#index)
   - [BADGES](#badges)
   - [INTRODUCTION](#introduction)
   - [PREREQUISITES](#prerequisites)
-  - [INSTALL](#install)
+  - [BUILD](#build)
     - [DOCKER RUN](#docker-run)
     - [DOCKER COMPOSE](#docker-compose)
   - [LICENSE](#license)
